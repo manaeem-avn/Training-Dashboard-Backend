@@ -1,0 +1,17 @@
+bin/
+obj/
+node_modules/
+dist/
+.vs/
+.angular/
+*.user
+*.suo
+Logs/
+src/WorkPortal.Api/Uploads/*
+!src/WorkPortal.Api/Uploads/.gitkeep
+appsettings.Production.json
+*.log
+
+# the Angular client lives in its own repository
+client/
+scripts/ui-smoke-test.mjs
