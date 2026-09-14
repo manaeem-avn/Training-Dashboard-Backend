@@ -15,3 +15,6 @@ appsettings.Production.json
 # the Angular client lives in its own repository
 client/
 scripts/ui-smoke-test.mjs
+
+api.log
+api-err.log
