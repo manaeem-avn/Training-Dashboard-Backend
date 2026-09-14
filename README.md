@@ -19,16 +19,12 @@ Project/
 │   ├── Controllers/             thin HTTP endpoints
 │   ├── Middleware/              global errors, request logging with a correlation id
 │   └── Common/                  PagedResult, ApiError, typed exceptions
-├── tests/WorkPortal.Tests/      42 unit, controller and integration tests
-├── client/                      Angular 18 + PrimeNG
-├── scripts/                     smoke tests (API, files, UI)
-├── docs/                        API notes, deployment guide, user guide
 └── WorkPortal.postman_collection.json
 ```
 
 ## Run it
 
-**1. Backend** — creates and seeds the database on first run.
+Creates and seeds the database on first run.
 
 ```bash
 dotnet run --project src/WorkPortal.Api
@@ -36,13 +32,8 @@ dotnet run --project src/WorkPortal.Api
 
 Swagger: <http://localhost:5080/swagger> · Health: <http://localhost:5080/health>
 
-**2. Frontend**
-
-```bash
-cd client && npm install && npm start
-```
-
-App: <http://localhost:4200>
+The Angular client lives in a separate repository:
+<https://github.com/manaeem-avn/Dashboard-Angular>
 
 The connection string in `appsettings.json` points at
 `(localdb)\MSSQLLocalDB;Database=WorkPortal`. The API applies migrations and seeds data at startup.
@@ -78,30 +69,4 @@ The connection string in `appsettings.json` points at
 | Reactive forms with front-end and back-end validation | dialogs use `FormBuilder`; API re-validates |
 | Task comments and file attachments | `TasksController`, `AttachmentService` |
 | Consistent errors, structured logging, health check | `ExceptionMiddleware`, Serilog, `/health` |
-| Backend tests | 42 tests — `dotnet test` |
-| Swagger, Postman collection, README, deployment guide | this repo |
-| IIS deployment | `docs/deployment-guide.md`, `client/src/web.config` |
-
-## Tests
-
-```bash
-dotnet test
-```
-
-42 passing: service unit tests (paging, filtering, sorting, audit stamping, comment ownership),
-controller tests with Moq (status codes, `CreatedAtAction` location), and integration tests through
-`WebApplicationFactory` (real routing, model binding, auth and the JSON error shape).
-
-Three smoke scripts under `scripts/` exercise a running instance:
-
-```powershell
-powershell -File scripts\api-smoke-test.ps1     # 45 API checks
-powershell -File scripts\api-file-test.ps1      # upload, download, rejected types and sizes
-node scripts\ui-smoke-test.mjs                  # 31 browser checks (needs puppeteer)
-```
-
-## Docs
-
-- [`docs/api-notes.md`](docs/api-notes.md) — endpoints, conventions, security notes
-- [`docs/deployment-guide.md`](docs/deployment-guide.md) — IIS publish and troubleshooting
-- [`docs/user-guide.md`](docs/user-guide.md) — how to use each screen
+| Swagger, Postman collection, README | this repo |
